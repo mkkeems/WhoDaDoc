@@ -1,11 +1,18 @@
-import { PageContainer } from "../../components/PageLayout";
-import SearchForm from "../../features/SearchForm/SearchForm";
+import { PageContainer } from '../../components/PageLayout';
+import SearchForm from '../../features/SearchForm/SearchForm';
+import Navbar from '../../components/Navbar/Navbar';
+import { TopSectionWrap, SectionContent } from '../HomePage/styles';
 
 const HomePage = () => {
   return (
     <PageContainer>
-      <h1>Hello, Tell me where it hurts</h1>
-      <SearchForm />
+      <Navbar />
+      <TopSectionWrap>
+        <SectionContent>
+          <h1>We will find you local doctors you will love</h1>
+          <SearchForm />
+        </SectionContent>
+      </TopSectionWrap>
     </PageContainer>
   );
 };
