@@ -39,4 +39,7 @@ export const TestimonialWrap = styled.div`
     }
     text-align: center;
   }
+  img {
+    width: 30%;
+  }
 `;

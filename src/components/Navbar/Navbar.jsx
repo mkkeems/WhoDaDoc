@@ -37,7 +37,7 @@ const LogoWrap = styled.div`
     height: auto;
   }
   .logo-text {
-    /* width: 120px; */
+    width: 140px;
   }
 `;
 

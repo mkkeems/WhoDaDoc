@@ -21,8 +21,8 @@ export const SearchbarForm = styled.div`
   }
 
   .search-icon-btn {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     border-radius: 50px;
     background-color: ${theme.colors.orange};
     position: relative;
