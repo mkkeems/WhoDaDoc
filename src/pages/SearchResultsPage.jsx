@@ -5,11 +5,13 @@ import { styled } from 'styled-components';
 const SearchResultsPage = () => {
   return <>
     <Divider>
-      <LeftSide><SearchResultList /></LeftSide>
-      <RightSide><Map /></RightSide>
-
+      <LeftSide>
+        <SearchResultList />
+      </LeftSide>
+      <RightSide>
+        <Map />
+      </RightSide>
     </Divider>
-
   </>;
 };
 
@@ -17,10 +19,13 @@ const SearchResultsPage = () => {
 export default SearchResultsPage;
 
 const Divider = styled.div`
-display: flex;
+
 `
 const LeftSide = styled.div`
-flex:3`
-
+position: absolute;
+z-index: 1;
+`
 const RightSide = styled.div`
-flex:7`
+width: 100vw;
+height: 100vh;
+`
