@@ -3,6 +3,7 @@ import docIcon from '../../assets/doc-icon1.png';
 import docText from '../../assets/doc-text1.png';
 import theme from '../../styles/theme';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const NavBarWrap = styled.div`
   width: 100vw;
@@ -17,6 +18,7 @@ const LogoWrap = styled.div`
   display: flex;
   gap: 12px;
   align-items: center;
+  cursor: pointer;
 
   .logo {
     width: 34px;
@@ -29,10 +31,11 @@ const LogoWrap = styled.div`
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <NavBarWrap>
-      <LogoWrap>
+      <LogoWrap onClick={() => navigate('/')}>
         <img src={docIcon} alt="logo" className="logo" />
         {location.pathname === '/' && (
           <img src={docText} alt="logo-text" className="logo-text" />

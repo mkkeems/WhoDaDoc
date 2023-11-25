@@ -1,9 +1,16 @@
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
-import { symptomsList, englishSpeakingOptions } from '../../data/formData';
+import {
+  // symptomsList,
+  englishSpeakingOptions,
+  searchGroupedOptions,
+} from '../../data/formData';
 import ErrorMessage from '../../components/Form/ErrorMessage';
 import Button from '../../components/Button';
 import { SearchbarForm } from '../../components/Form/StyledForm';
+import { IoSearchSharp } from 'react-icons/io5';
+
+const formatGroupLabel = (data) => <span>{data.label}</span>;
 
 const SearchForm = () => {
   const {
@@ -41,30 +48,57 @@ const SearchForm = () => {
             }}
             render={({ field: { onChange } }) => (
               <Select
+                classNamePrefix="search-filter"
                 placeholder="Search by symptoms or speacialties"
-                options={symptomsList}
+                options={searchGroupedOptions}
                 isMulti={true}
                 onChange={onChange}
+                formatGroupLabel={formatGroupLabel}
+                styles={{
+                  control: (baseStyles) => ({
+                    ...baseStyles,
+                    borderStyle: 'none',
+                    minWidth: '400px',
+                    marginTop: 0,
+                  }),
+                }}
+                components={{
+                  IndicatorSeparator: () => null,
+                }}
               />
             )}
           />
-          {errors.selectedSymptoms && (
-            <ErrorMessage>
-              Please select at least one symptom or specialty to search
-            </ErrorMessage>
-          )}
+          <div className="bar"></div>
           <Controller
             name="englishSpeaking"
             control={control}
             render={({ field: { onChange } }) => (
               <Select
+                classNamePrefix="search-filter"
                 placeholder="English Speaking"
                 options={englishSpeakingOptions}
                 onChange={onChange}
+                styles={{
+                  control: (baseStyles) => ({
+                    ...baseStyles,
+                    borderStyle: 'none',
+                  }),
+                }}
+                components={{
+                  IndicatorSeparator: () => null,
+                }}
               />
             )}
           />
+          <div className="search-icon-btn">
+            <IoSearchSharp className="search-icon" />
+          </div>
         </SearchbarForm>
+        {errors.selectedSymptoms && (
+          <ErrorMessage>
+            Please select at least one symptom or specialty to search
+          </ErrorMessage>
+        )}
         <Button type="submit" className="submit">
           Submit
         </Button>
