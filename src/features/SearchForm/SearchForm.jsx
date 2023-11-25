@@ -3,6 +3,7 @@ import Select from 'react-select';
 import { symptomsList, englishSpeakingOptions } from '../../data/formData';
 import ErrorMessage from '../../components/Form/ErrorMessage';
 import Button from '../../components/Button';
+import { SearchbarForm } from '../../components/Form/StyledForm';
 
 const SearchForm = () => {
   const {
@@ -31,38 +32,39 @@ const SearchForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name="selectedSymptoms"
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange } }) => (
-            <Select
-              placeholder="Search by symptoms or speacialties"
-              options={symptomsList}
-              isMulti={true}
-              onChange={onChange}
-            />
+        <SearchbarForm>
+          <Controller
+            name="selectedSymptoms"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange } }) => (
+              <Select
+                placeholder="Search by symptoms or speacialties"
+                options={symptomsList}
+                isMulti={true}
+                onChange={onChange}
+              />
+            )}
+          />
+          {errors.selectedSymptoms && (
+            <ErrorMessage>
+              Please select at least one symptom or specialty to search
+            </ErrorMessage>
           )}
-        />
-        {errors.selectedSymptoms && (
-          <ErrorMessage>
-            Please select at least one symptom or specialty to search
-          </ErrorMessage>
-        )}
-        <Controller
-          name="englishSpeaking"
-          control={control}
-          render={({ field: { onChange } }) => (
-            <Select
-              placeholder="English Speaking"
-              options={englishSpeakingOptions}
-              onChange={onChange}
-            />
-          )}
-        />
-
+          <Controller
+            name="englishSpeaking"
+            control={control}
+            render={({ field: { onChange } }) => (
+              <Select
+                placeholder="English Speaking"
+                options={englishSpeakingOptions}
+                onChange={onChange}
+              />
+            )}
+          />
+        </SearchbarForm>
         <Button type="submit" className="submit">
           Submit
         </Button>

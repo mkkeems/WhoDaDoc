@@ -2,6 +2,7 @@ const colors = {
   blue: '#3C92E2',
   orange: '#EA751F',
   lightOrange: '#FEF8EA',
+  grey: '#DADADA',
 };
 
 // for media query
