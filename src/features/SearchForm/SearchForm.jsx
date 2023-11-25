@@ -1,12 +1,14 @@
-import { Controller, useForm } from "react-hook-form";
-import Select from "react-select";
-import { symptomsList, englishSpeakingOptions } from "../../data/formData";
+import { Controller, useForm } from 'react-hook-form';
+import Select from 'react-select';
+import { symptomsList, englishSpeakingOptions } from '../../data/formData';
+import ErrorMessage from '../../components/Form/ErrorMessage';
+import Button from '../../components/Button';
 
 const SearchForm = () => {
   const {
-    register,
+    // register,
     handleSubmit,
-    watch,
+    // watch,
     control,
     formState: { errors },
   } = useForm();
@@ -32,29 +34,38 @@ const SearchForm = () => {
         <Controller
           name="selectedSymptoms"
           control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <label>Search Symptoms</label>
-              <Select
-                options={symptomsList}
-                isMulti={true}
-                onChange={onChange}
-              />
-            </>
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange } }) => (
+            <Select
+              placeholder="Search by symptoms or speacialties"
+              options={symptomsList}
+              isMulti={true}
+              onChange={onChange}
+            />
           )}
         />
+        {errors.selectedSymptoms && (
+          <ErrorMessage>
+            Please select at least one symptom or specialty to search
+          </ErrorMessage>
+        )}
         <Controller
           name="englishSpeaking"
           control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <label>English Speaking</label>
-              <Select options={englishSpeakingOptions} onChange={onChange} />
-            </>
+          render={({ field: { onChange } }) => (
+            <Select
+              placeholder="English Speaking"
+              options={englishSpeakingOptions}
+              onChange={onChange}
+            />
           )}
         />
 
-        <button type="submit">Submit</button>
+        <Button type="submit" className="submit">
+          Submit
+        </Button>
       </form>
     </div>
   );

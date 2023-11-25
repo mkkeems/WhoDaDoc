@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 // import reset from "styled-reset";
 
 const GlobalStyles = createGlobalStyle`
@@ -14,6 +14,9 @@ const GlobalStyles = createGlobalStyle`
     outline:0;
     padding: 0;
     font-size: 16px;
+  }
+  button{
+    border: none;
   }
 `;
 
