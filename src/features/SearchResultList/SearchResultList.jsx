@@ -51,6 +51,7 @@ function SearchResultList() {
               <a
                 href="https://calendly.com/medical_appointments/book"
                 target="_blank"
+                rel="noreferrer"
               >
                 <Button type="button" className="buttonForInfo">
                   Book now
@@ -189,7 +190,7 @@ const Toggle = styled.button`
 
 const SearchResultListContainer = styled.div`
   position: relative;
-  left: ${({ $toggle }) => ($toggle ? '-470px' : '0')};
+  left: ${({ $toggle }) => ($toggle ? '-660px' : '0')};
   transition: all 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
