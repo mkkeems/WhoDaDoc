@@ -13,8 +13,8 @@ const Map = () => {
 
     ];
     const map = new mapboxgl.Map({
-      container: 'map', // container ID
-      style: 'mapbox://styles/mapbox/light-v11', // style URL
+      container: 'map', 
+      style: 'mapbox://styles/mapbox/light-v11', 
       center: [127.04287, 37.850872], // starting position [lng, lat]
       zoom: 14, // starting zoom
     });
@@ -29,7 +29,7 @@ const Map = () => {
     return () => map.remove();
   }, []);
 
-  return <div id="map" style={{ width: '100%', height: '100%' }} />;
+  return <div id="map" style={{ width: '100%', height: '100%', }} />;
 };
 
 export default Map;

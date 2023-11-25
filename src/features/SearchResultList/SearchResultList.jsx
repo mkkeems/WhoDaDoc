@@ -3,6 +3,7 @@ import { useState } from 'react';
 import theme from '../../styles/theme';
 import Button from '../../components/Button';
 
+
 function SearchResultList() {
 
     const clickDetailHandler = (item, setDetail) => {
@@ -20,8 +21,6 @@ function SearchResultList() {
     const clickButtonHandler = () => {
         alert('You clicked the button!')
     }
-
-
 
     const [detail, setDetail] = useState(null);
     const [toggle, setToggle] = useState(false)
@@ -101,7 +100,8 @@ transition: all 0.3s ease-in-out;
     padding: 20px 0px;
     min-height:100vh;
     max-height: 100vh;
-    overflow: auto;
+    z-index: 4
+      
 `
 const SearchResultListBox = styled.div`
 background: white;
