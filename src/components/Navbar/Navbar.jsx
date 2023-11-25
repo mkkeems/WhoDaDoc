@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 const NavBarWrap = styled.div`
-  width: 100vw;
+  width: 100%;
   padding: 15px 48px;
   display: flex;
   justify-content: space-between;

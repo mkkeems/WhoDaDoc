@@ -1,14 +1,5 @@
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-
-const fetchHospitals = async (requestBody) => {
-  const response = await axios.post(
-    'https://whodadoc-back.onrender.com/search',
-    requestBody,
-  );
-
-  return response;
-};
+import fetchHospitals from './fetchHospitals';
 
 const useHospitalsQuery = (requestBody) => {
   return useQuery({

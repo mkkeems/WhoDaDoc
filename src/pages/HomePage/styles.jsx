@@ -1,9 +1,13 @@
 import { styled } from 'styled-components';
 import theme from '../../styles/theme';
 
-export const TopSectionWrap = styled.div`
+export const SectionWrap = styled.div`
   width: 100%;
   background-color: ${theme.colors.lightOrange};
+
+  &.white {
+    background-color: white;
+  }
 `;
 
 export const SectionContent = styled.div`
@@ -17,5 +21,22 @@ export const SectionContent = styled.div`
 
   h1 {
     margin-bottom: 40px;
+  }
+`;
+
+export const TestimonialWrap = styled.div`
+  padding: 100px 0 0;
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+  justify-content: space-evenly;
+
+  .center-text {
+    width: 30%;
+    p {
+      margin: 20px 0px;
+    }
+    text-align: center;
   }
 `;

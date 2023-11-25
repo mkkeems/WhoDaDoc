@@ -15,6 +15,9 @@ export const SearchbarForm = styled.div`
     &__menu {
       margin-top: 0px;
     }
+    &__clear-indicator {
+      padding-right: 0px;
+    }
   }
 
   .search-icon-btn {
@@ -39,5 +42,9 @@ export const SearchbarForm = styled.div`
   .bar {
     height: 24px;
     border-right: 1px solid black;
+  }
+
+  .checkbox-wrap {
+    padding: 8px 10px;
   }
 `;

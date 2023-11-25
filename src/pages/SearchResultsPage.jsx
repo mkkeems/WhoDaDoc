@@ -31,7 +31,7 @@ const SearchResultsPage = () => {
           <SearchResultList />
         </LeftSide>
         <RightSide>
-          <Map />
+          <Map data={hospitalsList?.data} />
         </RightSide>
       </Divider>
     </>

@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
-import {
-  englishSpeakingOptions,
-  searchGroupedOptions,
-} from '../../data/formData';
+import { searchGroupedOptions } from '../../data/formData';
 import ErrorMessage from '../../components/Form/ErrorMessage';
 import Button from '../../components/Button';
 import { SearchbarForm } from '../../components/Form/StyledForm';
@@ -16,22 +13,14 @@ const formatGroupLabel = (data) => <span>{data.label}</span>;
 
 const SearchForm = () => {
   const {
-    // register,
     handleSubmit,
-    // watch,
     control,
     formState: { errors },
   } = useForm();
 
   const [searchRequestBody, setSearchRequestBody] = useState();
 
-  const {
-    // isLoading: hospitalListLoading,
-    // error,
-    data: hospitalsList,
-    // isFetching,
-    isSuccess,
-  } = useHospitalsQuery(searchRequestBody);
+  const { isSuccess } = useHospitalsQuery(searchRequestBody);
 
   const onSubmit = async (data) => {
     const submittedFilters = Object.entries(data).reduce((res, curr) => {
@@ -39,7 +28,7 @@ const SearchForm = () => {
       if (Array.isArray(value)) {
         res[key] = value.map((value) => value.value);
       } else {
-        res[key] = value.value;
+        res[key] = value.value || value;
       }
       return res;
     }, {});
@@ -91,24 +80,20 @@ const SearchForm = () => {
         />
         <div className="bar"></div>
         <Controller
+          defaultValue={false}
           name="englishSpeaking"
           control={control}
-          render={({ field: { onChange } }) => (
-            <Select
-              classNamePrefix="search-filter"
-              placeholder="English Speaking"
-              options={englishSpeakingOptions}
-              onChange={onChange}
-              styles={{
-                control: (baseStyles) => ({
-                  ...baseStyles,
-                  borderStyle: 'none',
-                }),
-              }}
-              components={{
-                IndicatorSeparator: () => null,
-              }}
-            />
+          render={({ field: { onChange, value } }) => (
+            <div className="checkbox-wrap">
+              <label>English Available: </label>
+              <input
+                type="checkbox"
+                onChange={(e) => {
+                  onChange(e.target.checked);
+                }}
+                checked={value}
+              />
+            </div>
           )}
         />
         <Button type="submit" className="search-icon-btn">
