@@ -3,6 +3,7 @@ import { useState } from 'react';
 import theme from '../../styles/theme';
 import Button from '../../components/Button';
 
+
 function SearchResultList() {
   const clickDetailHandler = (item, setDetail) => {
     setDetail(item.address);
@@ -102,6 +103,7 @@ const Toggle = styled.button`
 `;
 
 const SearchResultListContainer = styled.div`
+
   position: relative;
   left: ${({ $toggle }) => ($toggle ? '-470px' : '0')};
   transition: all 0.3s ease-in-out;
@@ -114,6 +116,7 @@ const SearchResultListContainer = styled.div`
   max-height: 100vh;
   overflow: auto;
 `;
+
 const SearchResultListBox = styled.div`
   background: white;
   border: 1px solid black;

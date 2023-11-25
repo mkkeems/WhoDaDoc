@@ -7,10 +7,10 @@ const Map = ({ data }) => {
   const mapRef = useRef(null);
   useEffect(() => {
     const map = new mapboxgl.Map({
-      container: 'map', // container ID
-      style: 'mapbox://styles/mapbox/light-v11', // style URL
-      center: [127.029407, 37.496203], // starting position [lng, lat]
-      zoom: 10, // starting zoom
+      container: 'map', 
+      style: 'mapbox://styles/mapbox/light-v11', 
+      center: [127.04287, 37.850872], // starting position [lng, lat]
+      zoom: 14, // starting zoom
     });
 
     mapRef.current = map;
@@ -29,7 +29,7 @@ const Map = ({ data }) => {
     return () => map.remove();
   }, [data]);
 
-  return <div id="map" style={{ width: '100%', height: '100%' }} />;
+  return <div id="map" style={{ width: '100%', height: '100%', }} />;
 };
 
 export default Map;
