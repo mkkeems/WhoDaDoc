@@ -3,21 +3,43 @@ import { useState } from 'react';
 
 function SearchResultList() {
 
-    const clickHandler = (item, setDetail) => {
+    const clickDetailHandler = (item, setDetail) => {
         setDetail(item.address);
     };
 
-    const [detail, setDetail] = useState(null);
+    const clickToggleHandler = () => {
+        setToggle(!toggle)
+    }
 
-    return <SearchResultListContainer>
-        <Toggle>Toggle</Toggle>
-        <Header>Find your Doctor</Header>
+    const clickXhandler = () => {
+        setDetail(null)
+    }
+
+
+
+    const [detail, setDetail] = useState(null);
+    const [toggle, setToggle] = useState(false)
+
+    return <SearchResultListContainer toggle={toggle}>
+        <Toggle onClick={() => clickToggleHandler()}>{toggle ? '<' : '>'}</Toggle>
+        <HeaderWrap>
+            <Header>2 Internal Medicine Clinics Nearby</Header>
+        </HeaderWrap>
+
 
         {MOCK_DATA.map((item) => (
             <SearchResultListBox key={item.id}>
-                <Name onClick={() => clickHandler(item, setDetail)}>{item.name}</Name>
-                <p>Specialised with</p><h3>{item.treatable_symptoms}</h3>
-                {detail && <InformationForClinic><p>{detail}</p></InformationForClinic>}
+                <Name onClick={() => clickDetailHandler(item, setDetail)}>{item.name}</Name>
+                <p>235m away</p>
+                <p>treats {item.treatable_symptoms}</p>
+                <p>51 Reviews (4.7)</p>
+                <p>Insurance Coverage</p>
+                <p>walk in available • reservation recommended</p>
+                <span>Efficient</span>
+                <span>Highly rated</span>
+                <span>Clean</span>
+                <span>Kid-friendly</span>
+                {detail && <InformationForClinic><p>{detail}</p><Toggle onClick={() => clickXhandler()}>X</Toggle></InformationForClinic>}
             </SearchResultListBox>
         ))}
     </SearchResultListContainer>;
@@ -26,6 +48,7 @@ function SearchResultList() {
 export default SearchResultList;
 
 const InformationForClinic = styled.div`
+z-index: 1;
 width: 30px;
 height: 100px;
 border: 2px solid blue;
@@ -34,26 +57,42 @@ position: absolute;
 right: -300px;
 top: 0px;
 min-height: 100vh;
-width: 300px
+width: 300px;
 `
 
-const Header = styled.h1`
-color: white;
+const HeaderWrap = styled.div`
+display: flex;
+justify-content: center;
+align-items:center;
+background-color: #FEF8EA;
+width: 100%;
+height: 70px;
+`
+const Header = styled.h2`
+
 `
 
 const Toggle = styled.button`
 position: absolute;
-right: -40px;
+right: -10px;
+top: 0;
+z-index: 2;
+width: 20px;
+height: 30px;
+background-color: white;
+border: 2px solid black;
 `
 
 const SearchResultListContainer = styled.div`
 position: relative;
-display: flex;
-flex-direction: column;
-align-items: center;
-background: blue;
-padding: 20px 10px;
-min-height: 100vh;
+left: ${({ toggle }) => (toggle ? '-470px' : '0')};
+transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: blue;
+    padding: 20px 0px;
+    min-height: 100vh;
 `
 const SearchResultListBox = styled.div`
 background: white;
