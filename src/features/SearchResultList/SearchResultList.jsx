@@ -1,5 +1,7 @@
 import { styled } from 'styled-components';
 import { useState } from 'react';
+import theme from '../../styles/theme';
+import Button from '../../components/Button';
 
 function SearchResultList() {
 
@@ -15,15 +17,19 @@ function SearchResultList() {
         setDetail(null)
     }
 
+    const clickButtonHandler = () => {
+        alert('You clicked the button!')
+    }
+
 
 
     const [detail, setDetail] = useState(null);
     const [toggle, setToggle] = useState(false)
 
     return <SearchResultListContainer toggle={toggle}>
-        <Toggle onClick={() => clickToggleHandler()}>{toggle ? '<' : '>'}</Toggle>
+        <Toggle onClick={() => clickToggleHandler()}>{toggle ? '>' : '<'}</Toggle>
         <HeaderWrap>
-            <Header>2 Internal Medicine Clinics Nearby</Header>
+            <Header>12 Internal Medicine Clinics Nearby</Header>
         </HeaderWrap>
 
 
@@ -39,6 +45,7 @@ function SearchResultList() {
                 <span>Highly rated</span>
                 <span>Clean</span>
                 <span>Kid-friendly</span>
+                <Button onClick={() => clickButtonHandler(item)} type="submit" className="submit">Book Now</Button>
                 {detail && <InformationForClinic><p>{detail}</p><Toggle onClick={() => clickXhandler()}>X</Toggle></InformationForClinic>}
             </SearchResultListBox>
         ))}
@@ -64,19 +71,19 @@ const HeaderWrap = styled.div`
 display: flex;
 justify-content: center;
 align-items:center;
-background-color: #FEF8EA;
+background-color: ${theme.colors.lightOrange};
 width: 100%;
-height: 70px;
+padding: 20px;
 `
 const Header = styled.h2`
-
+font-weight: 900;
 `
 
 const Toggle = styled.button`
 position: absolute;
-right: -10px;
+right: -1px;
 top: 0;
-z-index: 2;
+z-index: 3;
 width: 20px;
 height: 30px;
 background-color: white;
@@ -90,18 +97,23 @@ transition: all 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: blue;
+    background-color: white;
     padding: 20px 0px;
-    min-height: 100vh;
+    min-height:100vh;
+    max-height: 100vh;
+    overflow: auto;
 `
 const SearchResultListBox = styled.div`
 background: white;
 border: 1px solid black;
-width: 90%;
+width: 100%;
 margin: 1px;
+padding: 10px;
 `
-const Name = styled.a`
+const Name = styled.div`
+padding-top: 20px;
 font-size: 1.5rem;
+font-weight: bold;
 `
 
 const MOCK_DATA = [
