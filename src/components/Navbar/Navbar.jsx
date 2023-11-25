@@ -5,6 +5,7 @@ import theme from '../../styles/theme';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import SearchForm from '../../features/SearchForm/SearchForm';
 
 const NavBarWrap = styled.div`
   width: 100%;
@@ -54,19 +55,22 @@ const Navbar = () => {
     <NavBarWrap>
       <LogoWrap onClick={() => navigate('/')}>
         <img src={docIcon} alt="logo" className="logo" />
-        {location.pathname === '/' && (
-          <img src={docText} alt="logo-text" className="logo-text" />
-        )}
+
+        <img src={docText} alt="logo-text" className="logo-text" />
       </LogoWrap>
       <NavLinkWrap>
-        <StyledNavLink
-          to="/about"
-          className={({ isActive, isPending }) =>
-            isPending ? 'pending' : isActive ? 'active' : ''
-          }
-        >
-          About
-        </StyledNavLink>
+        {location.pathname === '/results' ? (
+          <SearchForm />
+        ) : (
+          <StyledNavLink
+            to="/about"
+            className={({ isActive, isPending }) =>
+              isPending ? 'pending' : isActive ? 'active' : ''
+            }
+          >
+            About
+          </StyledNavLink>
+        )}
       </NavLinkWrap>
     </NavBarWrap>
   );

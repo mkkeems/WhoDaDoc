@@ -1,8 +1,14 @@
-import { styled } from 'styled-components';
+import Navbar from './Navbar/Navbar';
+import { Outlet } from 'react-router-dom';
+import { PageContainer } from './PageContainer';
 
-export const PageContainer = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-`;
+const PageLayout = () => {
+  return (
+    <PageContainer>
+      <Navbar />
+      <Outlet />
+    </PageContainer>
+  );
+};
+
+export default PageLayout;

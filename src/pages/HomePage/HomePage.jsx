@@ -1,6 +1,6 @@
-import { PageContainer } from '../../components/PageLayout';
+import { PageContainer } from '../../components/PageContainer';
 import SearchForm from '../../features/SearchForm/SearchForm';
-import Navbar from '../../components/Navbar/Navbar';
+// import Navbar from '../../components/Navbar/Navbar';
 import {
   SectionWrap,
   SectionContent,
@@ -11,7 +11,7 @@ import DocImg from '../../assets/doc-img1.png';
 const HomePage = () => {
   return (
     <PageContainer>
-      <Navbar />
+      {/* <Navbar /> */}
       <SectionWrap>
         <SectionContent>
           <h1>We will find you local doctors you will love</h1>
