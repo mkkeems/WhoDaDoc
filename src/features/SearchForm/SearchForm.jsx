@@ -1,75 +1,111 @@
+import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
-import { symptomsList, englishSpeakingOptions } from '../../data/formData';
+import { searchGroupedOptions } from '../../data/formData';
 import ErrorMessage from '../../components/Form/ErrorMessage';
 import Button from '../../components/Button';
 import { SearchbarForm } from '../../components/Form/StyledForm';
+import { IoSearchSharp } from 'react-icons/io5';
+import useHospitalsQuery from '../../api/useGetHospitals';
+import { useNavigate } from 'react-router-dom';
+
+const formatGroupLabel = (data) => <span>{data.label}</span>;
 
 const SearchForm = () => {
   const {
-    // register,
     handleSubmit,
-    // watch,
     control,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const [searchRequestBody, setSearchRequestBody] = useState();
+
+  const { isSuccess } = useHospitalsQuery(searchRequestBody);
+
+  const onSubmit = async (data) => {
     const submittedFilters = Object.entries(data).reduce((res, curr) => {
       const [key, value] = curr;
       if (Array.isArray(value)) {
         res[key] = value.map((value) => value.value);
       } else {
-        res[key] = value.value;
+        res[key] = value.value || value;
       }
       return res;
     }, {});
 
-    console.log({ submittedFilters });
-    // need to send this to backend
+    setSearchRequestBody(submittedFilters);
   };
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const sendDataToMapResultsPage = () => {
+      navigate('/results', { state: searchRequestBody });
+    };
+    if (isSuccess && searchRequestBody) {
+      sendDataToMapResultsPage();
+    }
+  }, [navigate, isSuccess, searchRequestBody]);
+
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <SearchbarForm>
-          <Controller
-            name="selectedSymptoms"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange } }) => (
-              <Select
-                placeholder="Search by symptoms or speacialties"
-                options={symptomsList}
-                isMulti={true}
-                onChange={onChange}
-              />
-            )}
-          />
-          {errors.selectedSymptoms && (
-            <ErrorMessage>
-              Please select at least one symptom or specialty to search
-            </ErrorMessage>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <SearchbarForm>
+        <Controller
+          name="symptoms"
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange } }) => (
+            <Select
+              classNamePrefix="search-filter"
+              placeholder="Search by symptoms or speacialties"
+              options={searchGroupedOptions}
+              isMulti={true}
+              onChange={onChange}
+              formatGroupLabel={formatGroupLabel}
+              styles={{
+                control: (baseStyles) => ({
+                  ...baseStyles,
+                  borderStyle: 'none',
+                  minWidth: '400px',
+                  marginTop: 0,
+                }),
+              }}
+              components={{
+                IndicatorSeparator: () => null,
+              }}
+            />
           )}
-          <Controller
-            name="englishSpeaking"
-            control={control}
-            render={({ field: { onChange } }) => (
-              <Select
-                placeholder="English Speaking"
-                options={englishSpeakingOptions}
-                onChange={onChange}
+        />
+        <div className="bar"></div>
+        <Controller
+          defaultValue={false}
+          name="englishSpeaking"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <div className="checkbox-wrap">
+              <label>English Available: </label>
+              <input
+                type="checkbox"
+                onChange={(e) => {
+                  onChange(e.target.checked);
+                }}
+                checked={value}
               />
-            )}
-          />
-        </SearchbarForm>
-        <Button type="submit" className="submit">
-          Submit
+            </div>
+          )}
+        />
+        <Button type="submit" className="search-icon-btn">
+          <IoSearchSharp className="search-icon" />
         </Button>
-      </form>
-    </div>
+      </SearchbarForm>
+      {errors.symptoms && (
+        <ErrorMessage>
+          Please select at least one symptom or specialty to search
+        </ErrorMessage>
+      )}
+    </form>
   );
 };
 

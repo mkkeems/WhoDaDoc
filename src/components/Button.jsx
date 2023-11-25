@@ -16,6 +16,9 @@ const StyledButton = styled.button`
     line-height: 21px;
     letter-spacing: 0.02em;
   }
+
+  &.search-icon-btn {
+  }
 `;
 
 const Button = ({ onClick, type, className, children }) => {
