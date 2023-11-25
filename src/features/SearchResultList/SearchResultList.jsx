@@ -45,7 +45,7 @@ function SearchResultList() {
                 <span>Highly rated</span>
                 <span>Clean</span>
                 <span>Kid-friendly</span>
-                <Button onClick={() => clickButtonHandler(item)} type="submit" className="submit">Book Now</Button>
+                <Button onClick={() => clickButtonHandler(item)} type="submit" className="submit">Clinic Info</Button>
                 {detail && <InformationForClinic><p>{detail}</p><Toggle onClick={() => clickXhandler()}>X</Toggle></InformationForClinic>}
             </SearchResultListBox>
         ))}
@@ -55,7 +55,7 @@ function SearchResultList() {
 export default SearchResultList;
 
 const InformationForClinic = styled.div`
-z-index: 1;
+z-index: 5;
 width: 30px;
 height: 100px;
 border: 2px solid blue;

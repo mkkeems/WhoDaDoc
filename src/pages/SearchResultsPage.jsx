@@ -8,7 +8,9 @@ const SearchResultsPage = () => {
       <LeftSide>
         <SearchResultList />
       </LeftSide>
-      <RightSide><Map /></RightSide>
+      <RightSide>
+        <Map />
+      </RightSide>
     </Divider>
   </>;
 };
