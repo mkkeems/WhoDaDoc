@@ -19,6 +19,17 @@ const StyledButton = styled.button`
 
   &.search-icon-btn {
   }
+   &.buttonForInfo {
+    background-color: ${theme.colors.orange};
+    /* padding: 0px 30px; */
+    border-radius: 30px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    /* line-height: 17px; */
+    /* letter-spacing: 0.02em; */
+    width: 100px;
+   }
 `;
 
 const Button = ({ onClick, type, className, children }) => {

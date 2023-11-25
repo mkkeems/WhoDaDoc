@@ -42,9 +42,10 @@ export default SearchResultsPage;
 
 const Divider = styled.div``;
 const LeftSide = styled.div`
-  position: absolute;
-  z-index: 1;
-`;
+position: absolute;
+width: 38vw;
+z-index: 1;
+`
 const RightSide = styled.div`
   width: 100vw;
   height: 100vh;
