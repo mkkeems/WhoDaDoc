@@ -4,6 +4,7 @@ import docText from '../../assets/doc-text1.png';
 import theme from '../../styles/theme';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const NavBarWrap = styled.div`
   width: 100vw;
@@ -12,6 +13,16 @@ const NavBarWrap = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid ${theme.colors.grey};
+`;
+
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+  color: black;
+
+  &.active {
+    text-decoration: underline;
+    font-weight: bold;
+  }
 `;
 
 const LogoWrap = styled.div`
@@ -29,6 +40,12 @@ const LogoWrap = styled.div`
   }
 `;
 
+const NavLinkWrap = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
+`;
+
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,6 +58,16 @@ const Navbar = () => {
           <img src={docText} alt="logo-text" className="logo-text" />
         )}
       </LogoWrap>
+      <NavLinkWrap>
+        <StyledNavLink
+          to="/about"
+          className={({ isActive, isPending }) =>
+            isPending ? 'pending' : isActive ? 'active' : ''
+          }
+        >
+          About
+        </StyledNavLink>
+      </NavLinkWrap>
     </NavBarWrap>
   );
 };

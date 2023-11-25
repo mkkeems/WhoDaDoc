@@ -13,4 +13,9 @@ export const SectionContent = styled.div`
   align-items: center;
   justify-content: center;
   max-width: 1200px;
+  margin: auto;
+
+  h1 {
+    margin-bottom: 40px;
+  }
 `;
