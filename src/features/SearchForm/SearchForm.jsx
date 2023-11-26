@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import { searchGroupedOptions } from '../../data/formData';
 import ErrorMessage from '../../components/Form/ErrorMessage';
 import Button from '../../components/Button';
@@ -8,6 +8,7 @@ import { SearchbarForm } from '../../components/Form/StyledForm';
 import { IoSearchSharp } from 'react-icons/io5';
 import useHospitalsQuery from '../../api/useGetHospitals';
 import { useNavigate } from 'react-router-dom';
+import { symptomsList } from '../../data/formData';
 
 const formatGroupLabel = (data) => <span>{data.label}</span>;
 
@@ -23,6 +24,7 @@ const SearchForm = () => {
   const { isSuccess } = useHospitalsQuery(searchRequestBody);
 
   const onSubmit = async (data) => {
+    console.log({ data });
     const submittedFilters = Object.entries(data).reduce((res, curr) => {
       const [key, value] = curr;
       if (Array.isArray(value)) {
@@ -33,6 +35,20 @@ const SearchForm = () => {
       return res;
     }, {});
 
+    let prompt = [];
+    submittedFilters.symptoms.forEach((symptom) => {
+      const nonExistingSymptom = !symptomsList.includes(
+        (value) => value.value === symptom,
+      );
+      if (nonExistingSymptom) {
+        prompt.push(symptom);
+      }
+    });
+
+    if (prompt.length > 0) {
+      const finalPrompt = prompt.length > 1 ? prompt.join(', and ') : prompt[0];
+      submittedFilters.prompt = finalPrompt;
+    }
     setSearchRequestBody(submittedFilters);
   };
 
@@ -57,7 +73,7 @@ const SearchForm = () => {
             required: true,
           }}
           render={({ field: { onChange } }) => (
-            <Select
+            <CreatableSelect
               classNamePrefix="search-filter"
               placeholder="Search by symptoms or speacialties"
               options={searchGroupedOptions}
