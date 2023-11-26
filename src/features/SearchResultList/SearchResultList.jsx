@@ -12,6 +12,7 @@ function SearchResultList() {
       address: item.address,
       doctor: item.doctor,
       specialised: item.treatable_symptoms,
+      url: item.url,
     });
   };
 
@@ -25,6 +26,7 @@ function SearchResultList() {
       address: item.address,
       doctor: item.doctor,
       specialised: item.treatable_symptoms,
+      url: item.url,
     });
   };
 
@@ -38,16 +40,34 @@ function SearchResultList() {
         {detail && (
           <InformationForClinic>
             <InfoWrapper>
-              <img
-                src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9jdG9yfGVufDB8fDB8fHww"
-                width={200}
-                height={200}
-              />
+              <img src={detail.url} width={200} height={200} />
               <h2 style={{ paddingTop: '30px' }}>Name: {detail.doctor}</h2>
-              <p>Address : {detail.address}</p>
-              <p>Phone Number : 000 0000 0000</p>
-              <p>Specialised with {detail.specialised}</p>
-              <p>English Speaking</p>
+              <P>
+                <strong>🏥 Address</strong>
+                <br />
+                {detail.address}
+              </P>
+              <P>
+                <strong>☎️ Phone Number</strong>
+                <br />
+                000 0000 0000
+              </P>
+              <P>
+                <strong>🩺 Specialised with</strong> <br />{' '}
+                {detail.specialised.join()}
+              </P>
+              <p style={{ paddingBottom: '50px' }}>
+                <strong>🗣 English Speaking</strong>
+              </p>
+              <a
+                href="https://calendly.com/medical_appointments/book"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Button type="button" className="buttonForInfo">
+                  Book now
+                </Button>
+              </a>
               <Toggle onClick={() => clickXhandler()}>X</Toggle>
             </InfoWrapper>
           </InformationForClinic>
@@ -63,7 +83,7 @@ function SearchResultList() {
           {toggle ? '>' : '<'}
         </Toggle>
         <HeaderWrap>
-          <Header>12 Internal Medicine Clinics Nearby</Header>
+          <Header>{MOCK_DATA.length} Internal Medicine Clinics Nearby</Header>
         </HeaderWrap>
 
         {MOCK_DATA.map((item) => (
@@ -82,7 +102,7 @@ function SearchResultList() {
             </div>
 
             <Distance>235m away</Distance>
-            <Skills>treats {item.treatable_symptoms}</Skills>
+            <Skills>treats {item.treatable_symptoms.join()}</Skills>
             <TextForList>51 Reviews (4.7)</TextForList>
             <TextForList>Insurance Coverage</TextForList>
             <TextForList>
@@ -105,6 +125,10 @@ function SearchResultList() {
 
 export default SearchResultList;
 
+const P = styled.p`
+  padding-bottom: 10px;
+`;
+
 const InfoWrapper = styled.div`
   border-radius: 10px;
   background: white;
@@ -112,7 +136,7 @@ const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 `;
 
 const Tag = styled.span`
@@ -181,13 +205,13 @@ const Toggle = styled.button`
 
 const SearchResultListContainer = styled.div`
   position: relative;
-  left: ${({ $toggle }) => ($toggle ? '-470px' : '0')};
+  left: ${({ $toggle }) => ($toggle ? '-660px' : '0')};
   transition: all 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
-  /* padding: 20px 0px; */
+  padding: 20px 0px;
   min-height: 100vh;
   max-height: 100vh;
 
@@ -210,84 +234,80 @@ const MOCK_DATA = [
     id: 1,
     name: 'H Plus Yangji Hospital',
     treatable_symptoms: ['스케일링', '충치', '사랑니'],
-    address: '서울특별시',
-    doctor: '김김김',
+    address: '서울 강남구 도산대로',
+    doctor: '강하늘',
+    url: 'https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9jdG9yfGVufDB8fDB8fHww',
   },
   {
     id: 2,
     name: 'Chung-Ang University Hospital',
-    treatable_symptoms: ['a', 'b', 'c'],
-    address: '대구광역시',
-    doctor: '이이이',
+    treatable_symptoms: ['감기', '기침', '인후통'],
+    address: '서울 강남구 신사동',
+    doctor: '박경남',
+    url: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZG9jdG9yfGVufDB8fDB8fHww',
   },
   {
     id: 3,
     name: 'Ewha Womans University Mokdong Hospital',
-    treatable_symptoms: ['a', 'b', 'c'],
-    address: '동대문구',
-    doctor: '박박박',
+    treatable_symptoms: ['두통', '현기증', '시력저하'],
+    address: '서울 동대문구',
+    doctor: '김은경',
+    url: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D',
   },
   {
     id: 4,
     name: 'Gangbuk Samsung Hospital',
-    treatable_symptoms: ['a', 'b', 'c'],
-    address: '인천',
-    doctor: '서서서',
+    treatable_symptoms: ['복통', '두통', '치통'],
+    address: '인천광역시 월미도',
+    doctor: '한예지',
+    url: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D',
   },
   {
     id: 5,
     name: 'Hanyang University Seoul Hospital',
     treatable_symptoms: ['a', 'b', 'c'],
-    address: '파주',
-    doctor: '하하하',
+    address: '경기도 파주시 문산읍',
+    doctor: '김지선',
+    url: 'https://plus.unsplash.com/premium_photo-1661764878654-3d0fc2eefcca?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3Dw',
   },
   {
     id: 6,
-    name: '피부과',
+    name: '기흥피부과',
     treatable_symptoms: ['a', 'b', 'c'],
-    address: '졸려',
-    doctor: '이름이',
+    address: '경기도 기흥',
+    doctor: '강아름',
+    url: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D',
   },
   {
     id: 7,
     name: '치과',
     treatable_symptoms: ['a', 'b', 'c'],
-    address: '으아아아',
-    doctor: '뭐야',
+    address: '경기도 남양주시 와부읍',
+    doctor: '박지혜',
+    url: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D',
   },
   {
     id: 8,
     name: '내과',
     treatable_symptoms: ['a', 'b', 'c'],
-    address: 'ㅋㅋㅋㅋ',
-    doctor: '자고싶다',
+    address: '서울 여의도',
+    doctor: '정수연',
+    url: 'https://plus.unsplash.com/premium_photo-1661757221486-183030ef8670?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D',
   },
   {
     id: 9,
-    name: '피부과',
+    name: '이비인후과',
     treatable_symptoms: ['a', 'b', 'c'],
-    address: 'ㅎㅎㅎㅎ',
-    doctor: '김김김',
+    address: '서울 양평동',
+    doctor: '이순신',
+    url: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D',
   },
   {
     id: 10,
     name: '치과',
     treatable_symptoms: ['a', 'b', 'c'],
-    address: 'ㅁㅇ러ㅣㅏㅇㅁㄹ',
-    doctor: '김김김',
-  },
-  {
-    id: 11,
-    name: '내과',
-    treatable_symptoms: ['a', 'b', 'c'],
-    address: '9',
-    doctor: '김김김',
-  },
-  {
-    id: 12,
-    name: '피부과',
-    treatable_symptoms: ['a', 'b', 'c'],
-    address: '0',
-    doctor: '김김김',
+    address: '서울 종로구 숭인동',
+    doctor: '김여울',
+    url: 'https://images.unsplash.com/photo-1579165466949-3180a3d056d5?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D',
   },
 ];
