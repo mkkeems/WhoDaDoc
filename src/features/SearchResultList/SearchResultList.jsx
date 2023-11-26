@@ -1,11 +1,23 @@
 import { styled } from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import theme from '../../styles/theme';
 import Button from '../../components/Button';
 
-function SearchResultList() {
+function SearchResultList({ data }) {
   const [detail, setDetail] = useState(null);
   const [toggle, setToggle] = useState(false);
+  const [resultsData, setResultsData] = useState(MOCK_DATA);
+
+  // console.log({ dataFromSearchResultListProps: data })
+  console.log({ resultsData });
+  console.log('kjslkfjksldhfkhslk');
+  useEffect(() => {
+    if (data) {
+      setResultsData(data);
+    }
+  }, [data]);
+
+  // data = data['data'];
 
   const clickDetailHandler = (item, setDetail) => {
     setDetail({
@@ -83,17 +95,17 @@ function SearchResultList() {
           {toggle ? '>' : '<'}
         </Toggle>
         <HeaderWrap>
-          <Header>{MOCK_DATA.length} Internal Medicine Clinics Nearby</Header>
+          <Header>{data?.length} Internal Medicine Clinics Nearby</Header>
         </HeaderWrap>
 
-        {MOCK_DATA.map((item) => (
+        {resultsData.map((item, index) => (
           <SearchResultListBox key={item.id}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <Name onClick={() => clickDetailHandler(item, setDetail)}>
                 {item.name}
               </Name>
               <Button
-                onClick={() => clickButtonHandler(item, setDetail)}
+                onClick={() => clickButtonHandler(MOCK_DATA[index], setDetail)}
                 type="button"
                 className="buttonForInfo"
               >
@@ -102,7 +114,12 @@ function SearchResultList() {
             </div>
 
             <Distance>235m away</Distance>
-            <Skills>treats {item.treatable_symptoms.join()}</Skills>
+            <Skills>
+              treats{' '}
+              {item.treatable_symptoms
+                ? item.treatable_symptoms.join()
+                : item.symptoms}
+            </Skills>
             <TextForList>51 Reviews (4.7)</TextForList>
             <TextForList>Insurance Coverage</TextForList>
             <TextForList>

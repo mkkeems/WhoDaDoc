@@ -19,7 +19,7 @@ const SearchResultsPage = () => {
     // isLoading: hospitalListLoading,
     data: hospitalsList,
     // isFetching,
-    // isSuccess,
+    isSuccess,
   } = useHospitalsQuery(searchRequestBody);
 
   console.log({ hospitalsList });
@@ -28,10 +28,10 @@ const SearchResultsPage = () => {
     <>
       <Divider>
         <LeftSide>
-          <SearchResultList />
+          <SearchResultList data={isSuccess ? hospitalsList?.data : null} />
         </LeftSide>
         <RightSide>
-          <Map data={hospitalsList?.data} />
+          <Map data={isSuccess ? hospitalsList.data : null} />
         </RightSide>
       </Divider>
     </>
@@ -42,10 +42,10 @@ export default SearchResultsPage;
 
 const Divider = styled.div``;
 const LeftSide = styled.div`
-position: absolute;
-width: 38vw;
-z-index: 1;
-`
+  position: absolute;
+  width: 38vw;
+  z-index: 1;
+`;
 const RightSide = styled.div`
   width: 100vw;
   height: 100vh;
