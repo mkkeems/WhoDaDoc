@@ -53,7 +53,7 @@ function SearchResultList({ data }) {
           <InformationForClinic>
             <InfoWrapper>
               <img src={detail.url} width={200} height={200} />
-              <h2 style={{ paddingTop: '30px' }}>Name: {detail.doctor}</h2>
+              <h2>Name: {detail.doctor}</h2>
               <P>
                 <strong>🏥 Address</strong>
                 <br />
@@ -71,15 +71,18 @@ function SearchResultList({ data }) {
               <p style={{ paddingBottom: '50px' }}>
                 <strong>🗣 English Speaking</strong>
               </p>
-              <a
-                href="https://calendly.com/medical_appointments/book"
-                target="_blank"
-                rel="noreferrer"
+              <Button
+                type="button"
+                className="orangeButton bookNow"
+                onClick={() =>
+                  window.open(
+                    'https://calendly.com/medical_appointments/book',
+                    '_blank',
+                  )
+                }
               >
-                <Button type="button" className="buttonForInfo">
-                  Book now
-                </Button>
-              </a>
+                Book now
+              </Button>
               <Toggle onClick={() => clickXhandler()}>X</Toggle>
             </InfoWrapper>
           </InformationForClinic>
@@ -241,7 +244,7 @@ const SearchResultListBox = styled.div`
   padding: 10px;
 `;
 const Name = styled.div`
-  padding-top: 20px;
+  /* padding-top: 20px; */
   font-size: 1.5rem;
   font-weight: bold;
 `;

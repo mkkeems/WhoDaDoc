@@ -21,7 +21,7 @@ const SearchForm = () => {
 
   const [searchRequestBody, setSearchRequestBody] = useState();
 
-  const { isSuccess } = useHospitalsQuery(searchRequestBody);
+  const { isSuccess, isLoading } = useHospitalsQuery(searchRequestBody);
 
   const onSubmit = async (data) => {
     console.log({ data });
@@ -37,10 +37,11 @@ const SearchForm = () => {
 
     let prompt = [];
     submittedFilters.symptoms.forEach((symptom) => {
-      const nonExistingSymptom = !symptomsList.includes(
+      const existingSymptom = symptomsList.find(
         (value) => value.value === symptom,
       );
-      if (nonExistingSymptom) {
+      console.log({ existingSymptom, symptom });
+      if (!existingSymptom) {
         prompt.push(symptom);
       }
     });
@@ -112,6 +113,7 @@ const SearchForm = () => {
             </div>
           )}
         />
+
         <Button type="submit" className="search-icon-btn">
           <IoSearchSharp className="search-icon" />
         </Button>
@@ -121,6 +123,7 @@ const SearchForm = () => {
           Please select at least one symptom or specialty to search
         </ErrorMessage>
       )}
+      {isLoading ? 'Loading...' : null}
     </form>
   );
 };
